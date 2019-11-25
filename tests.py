@@ -3,8 +3,8 @@ from qgraph import QGraph
 
 
 class InitTests(unittest.TestCase):
+    """Test for representation of qgraphs with error situations"""
     def test_error_init_types(self):
-        """Test for representation of qgraphs with error situations"""
         with self.assertRaises(ValueError):
             QGraph(typeof='')
         with self.assertRaises(ValueError):
@@ -12,8 +12,8 @@ class InitTests(unittest.TestCase):
 
 
 class TypeTests(unittest.TestCase):
+    """Tests for representation settings of qgraphs w/out errors"""
     def test_normal_get_type(self):
-        """Tests for representation settings of qgraphs w/out errors"""
         self.assertEqual(QGraph(typeof='AL', structure={1: [2, 3], 2: [4]}).getType(), 'AL')
         self.assertEqual(QGraph(typeof='AM', structure=[[0, 1], [1, 0]]).getType(), 'AM')
         self.assertEqual(QGraph(typeof='LE', structure=[[1, 2], [1, 3], [2, 3]]).getType(), 'LE')
