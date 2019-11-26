@@ -51,8 +51,16 @@ class StructureTests(unittest.TestCase):
         self.assertEqual(QGraph().clearStructure().getStructure(), {})
     """Tests for updateStructure > clearStructure > getStructure combos"""
     def test_structure_update_clear_get(self):
-        self.assertEqual(QGraph().updateStructure({1: [2, 3], 2: [3]}).clearStructure().getStructure(), {1: [2, 3],
-                                                                                                         2: [3]})
+        self.assertEqual(QGraph().updateStructure({1: [2, 3], 2: [3]}).clearStructure().getStructure(), {})
+
+
+class EdgeTest(unittest.TestCase):
+    """Tests for addEdge"""
+    def test_edge_add(self):
+        self.assertEqual(QGraph().addEdge(1, 2).getStructure(), {1: [2], 2: []})
+        self.assertEqual(QGraph().addEdge(2, 1).getStructure(), {1: [], 2: [1]})
+        self.assertEqual(QGraph().addEdge(1, 2).addEdge(2, 1).getStructure(), {1: [2], 2: [1]})
+        self.assertEqual(QGraph().addEdge(1, 2).addEdge(2, 1).addEdge(2, 3).getStructure(), {1: [2], 2: [1, 3], 3: []})
 
 
 if __name__ == '__main__':
