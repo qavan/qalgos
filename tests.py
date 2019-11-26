@@ -49,19 +49,25 @@ class QGraphTests(unittest.TestCase):
         self.assertEqual(QGraph().addEdge(2, 1).getStructure(), {1: [], 2: [1]})
         self.assertEqual(QGraph().addEdge(1, 2).addEdge(2, 1).getStructure(), {1: [2], 2: [1]})
         self.assertEqual(QGraph().addEdge(1, 2).addEdge(2, 1).addEdge(2, 3).getStructure(), {1: [2], 2: [1, 3], 3: []})
-    """Test for addEdge > delEdge > getStructure"""
+    """Tests for addEdge > delEdge > getStructure"""
     def test_edge_del_getStructure(self):
         self.assertEqual(QGraph().addEdge(1, 2).addEdge(2, 1).delEdge(1, 2).getStructure(), {1: [], 2: [1]})
         g = QGraph().addEdge(1, 2).addEdge(1, 3).addEdge(3, 2)
         with self.assertRaises(ValueError):
             g.delEdge(4, 5)
-    """Test for delNode"""
+    """Tests for delNode"""
     def test_node_del(self):
         self.assertEqual(QGraph(structure={1: [2, 3], 2: [3, 4], 3: [], 4: [1]}).delNode(3).getStructure(),
                          {1: [2], 2: [4], 4: [1]})
         self.assertEqual(QGraph(structure={1: [2], 2: [1]}).delNode(2).getStructure(), {1: []})
         self.assertEqual(QGraph(structure={1: [2], 2: [1]}).delNode(2).delNode(1).getStructure(), {})
-
+    """Tests for weight_of_nodes"""
+    def test_weight_of_nodes(self):
+        self.assertEqual(QGraph(structure={1: [2, 3], 2: [3, 4], 3: [], 4: [1]}).weight_of_nodes(), {1: 2, 2: 2, 3: 0, 4: 1})
+    """Tests for isolated_nodes"""
+    def test_isolated_nodes(self):
+        self.assertEqual(QGraph(structure={1: [2, 3], 2: [3, 4], 3: [], 4: [1]}).isolated_nodes(), [])
+        self.assertEqual(QGraph(structure={1: [2, 3], 2: [3], 3: [], 4: []}).isolated_nodes(), [4])
 if __name__ == '__main__':
     unittest.main()
 
