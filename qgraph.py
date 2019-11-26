@@ -77,9 +77,10 @@ class QGraph(object):
         vis(self)
 
     def weight_of_nodes(self):
-        m = {}
+        m = {key: 0 for key in self._structure.keys()}
         for key, value in self._structure.items():
-            m.update({key: len(self._structure[key])})
+            for elem in value:
+                m.update({elem: m[elem]+1})
         return m
 
     def isolated_nodes(self):
@@ -87,13 +88,10 @@ class QGraph(object):
         for key, value in self._structure.items():
             if value == []:
                 for _key, _value in self._structure.items():
-                    if _key == key:
-                        continue
-                    else:
-                        for elem in _value:
-                            if elem == key:
-                                xm.update({key: xm[key]+1})
-                                break
+                    for elem in _value:
+                        if elem == key:
+                            xm.update({key: xm[key]+1})
+                            break
             else:
                 xm.update({key: xm[key]+1})
         return [key for key in xm.keys() if xm[key] == 0]

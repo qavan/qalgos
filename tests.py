@@ -63,12 +63,13 @@ class QGraphTests(unittest.TestCase):
         self.assertEqual(QGraph(structure={1: [2], 2: [1]}).delNode(2).delNode(1).getStructure(), {})
     """Tests for weight_of_nodes"""
     def test_weight_of_nodes(self):
-        self.assertEqual(QGraph(structure={1: [2, 3], 2: [3, 4], 3: [], 4: [1]}).weight_of_nodes(), {1: 2, 2: 2, 3: 0, 4: 1})
+        self.assertEqual(QGraph(structure={1: [2, 3], 2: [3, 4], 3: [], 4: [1]}).weight_of_nodes(), {1: 1, 2: 1, 3: 2,
+                                                                                                     4: 1})
     """Tests for isolated_nodes"""
     def test_isolated_nodes(self):
         self.assertEqual(QGraph(structure={1: [2, 3], 2: [3, 4], 3: [], 4: [1]}).isolated_nodes(), [])
         self.assertEqual(QGraph(structure={1: [2, 3], 2: [3], 3: [], 4: []}).isolated_nodes(), [4])
+
+
 if __name__ == '__main__':
     unittest.main()
-
-
