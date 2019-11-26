@@ -1,7 +1,7 @@
 class QGraph(object):
     _name = None
     _type = None
-    _structure = []
+    _structure = {}
 
     def __init__(self, name=None, typeof=None, structure=None):
         # if typeof not in [None, 'AM', 'IM', 'AL', 'LE']:
@@ -10,14 +10,15 @@ class QGraph(object):
         else:
             if structure is None:
                 ...
-            elif type(structure) is list or type(structure) is dict:
+            elif type(structure) is dict:
                 self._structure = structure
             else:
                 raise ValueError('Now QGraph can only be represented as an adjacency list(AL) uses dict')
             self._name = name
             self._type = typeof
 
-    # def addNode(self, start, finis):
+    def addNode(self, start, finish):
+        self._structure = {}
     def getType(self):
         return self._type
 
