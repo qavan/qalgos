@@ -4,21 +4,18 @@ class QGraph(object):
     _structure = []
 
     def __init__(self, name=None, typeof=None, structure=None):
-        if typeof not in [None, 'AM', 'IM', 'AL', 'LE']:
-            raise ValueError('A QGraph can only be represented as an adjacency matrix(AM), an incidence matrix(IM), an'
-                             ' adjacency list(AL), and a list of edges(LE) or created manually(None)')
+        # if typeof not in [None, 'AM', 'IM', 'AL', 'LE']:
+        if typeof not in [None, 'AL']:
+            raise ValueError('Now QGraph can only be represented as an adjacency list(AL)')
         else:
-            self._name = name
-            if typeof is not None:
-                self._type = typeof
-                if structure is not None:
-                    self._structure = structure
-                else:
-                    raise ValueError('A QGraph can only be represented as an adjacency matrix(AM), an incidence '
-                                     'matrix(IM), an adjacency list(AL), and a list of edges(LE) or '
-                                     'created manually(None)')
+            if structure is None:
+                ...
+            elif type(structure) is list or type(structure) is dict:
+                self._structure = structure
             else:
-                self._type = None
+                raise ValueError('Now QGraph can only be represented as an adjacency list(AL) uses dict')
+            self._name = name
+            self._type = typeof
 
     # def addNode(self, start, finis):
     def getType(self):
