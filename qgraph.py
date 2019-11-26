@@ -24,6 +24,29 @@ class QGraph(object):
             raise ValueError('Test')
         return self
 
+    def delEdge(self, start, finish):
+        if start in self._structure.keys():
+            ssStart = self._structure[start]
+            if finish in ssStart:
+                ssStart.pop(ssStart.index(finish))
+                self._structure.update({start: ssStart})
+            else:
+                raise ValueError('Node <' + str(finish) + '> doesnt exist in graph as end of edge from <' + str(start)
+                                 + '> node.')
+        else:
+            raise ValueError('Node <' + str(finish) + '> doesnt exist in graph as end of edge from <' + str(start)
+                             + '> node.')
+        return self
+
+    def delNode(self, node):
+        if node in list(self._structure.keys()):
+            del self._structure[node]
+        ssV = list(self._structure.values())
+        for x in range(len(ssV)):
+            if node in ssV[x]:
+                ssV[x].pop(ssV[x].index(node))
+        return self
+
     def getType(self):
         return self._typeof
 
@@ -35,7 +58,7 @@ class QGraph(object):
         return self._name
 
     def delName(self):
-        del self._name
+        self._name = None
         return self
 
     def getStructure(self):
